@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.dotwait</groupId>
+    <artifactId>algorithmic_practice</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>algorithmic_practice</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--jsp页面使用jstl标签-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <!--用于编译jsp-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--打包只能用1.4.2.RELEASE 版本的，其它版本的都不可以。这个目前是springboot的bug。目前还未看到官方的解说。-->
+                <version>1.4.2.RELEASE</version>
+                <configuration>
+                    <mainClass>com.dotwait.algorithmic_practice.AlgorithmicPracticeApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <!--将jsp打包-->
+            <resource>
+                <!-- 指定resources插件处理哪个目录下的资源文件 -->
+                <directory>src/main/webapp</directory>
+                <!--注意此次必须要放在此目录下才能被访问到-->
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <!--编译时将resources打包-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 是否替换@xx@表示的maven properties属性值 -->
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <!--mybatis文件的XML，加载到编译文件中-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>com/idp/web/**/**/*.xml</include>
+                </includes>
+            </resource>
+
+        </resources>
+
+    </build>
+
+</project>
